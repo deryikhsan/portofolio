@@ -1,13 +1,25 @@
 import { useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Toast } from "react-bootstrap";
 import contactImg from "../assets/img/contact-img.svg";
 import "animate.css";
 import TrackVisibility from "react-on-screen";
-import navIcon1 from "../assets/Icon/home.png";
-import navIcon2 from "../assets/Icon/mail.png";
-import navIcon3 from "../assets/Icon/smart.png";
+import foto from "../assets/img/profil.jpg";
 
 export const Contact = () => {
+  const containerStyle = {
+    display: "inline-block",
+    backgroundColor: "#000", // Warna latar belakang
+    padding: "20%", // Padding sekitar gambar
+    borderRadius: "1000px", // Sudut membulat untuk latar belakang
+  };
+
+  const imgStyle = {
+    borderRadius: "50%",
+    width: "600px", // Sesuaikan ukuran sesuai kebutuhan
+    height: "600px", // Sesuaikan ukuran sesuai kebutuhan
+    objectFit: "cover", // Untuk memastikan gambar tetap proporsional
+  };
+
   const formInitialDetails = {
     firstName: "",
     lastName: "",
@@ -28,25 +40,32 @@ export const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setButtonText("Sending...");
-    let response = await fetch("http://localhost:5000/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-      },
-      body: JSON.stringify(formDetails),
-    });
-    setButtonText("Send");
-    let result = await response.json();
-    setFormDetails(formInitialDetails);
-    if (result.code == 200) {
-      setStatus({ succes: true, message: "Message sent successfully" });
-    } else {
-      setStatus({
-        succes: false,
-        message: "Something went wrong, please try again later.",
-      });
-    }
+    alert(
+      "Terima kasih atas partisipasi Anda! Kami akan segera menindaklanjuti permintaan Anda."
+    );
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.location.href = "/";
+
+    // e.preventDefault();
+    // setButtonText("Sending...");
+    // let response = await fetch("http://localhost:5000/contact", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json;charset=utf-8",
+    //   },
+    //   body: JSON.stringify(formDetails),
+    // });
+    // setButtonText("Send");
+    // let result = await response.json();
+    // setFormDetails(formInitialDetails);
+    // if (result.code == 200) {
+    //   setStatus({ succes: true, message: "Message sent successfully" });
+    // } else {
+    //   setStatus({
+    //     succes: false,
+    //     message: "Something went wrong, please try again later.",
+    //   });
+    // }
   };
 
   return (
@@ -98,13 +117,16 @@ export const Contact = () => {
           <Col size={12} md={6}>
             <TrackVisibility>
               {({ isVisible }) => (
-                <img
-                  className={
-                    isVisible ? "animate__animated animate__zoomIn" : ""
-                  }
-                  src={contactImg}
-                  alt="Contact Us"
-                />
+                <div style={containerStyle}>
+                  <img
+                    style={imgStyle}
+                    className={
+                      isVisible ? "animate__animated animate__zoomIn" : ""
+                    }
+                    src={foto}
+                    alt="Contact Us"
+                  />
+                </div>
               )}
             </TrackVisibility>
           </Col>
